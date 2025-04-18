@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'apellidoP',
+        'apellidoM',
+        'ci',
+        'direccion',
+        'fecha_de _nacimiento', // ¡Usa el nombre con el ESPACIO!
+        'genero',
     ];
 
     /**

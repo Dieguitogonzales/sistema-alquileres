@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('ci')->unique();
             $table->enum('estado', ['activo', 'inactivo', 'pendiente']); // Corrección: se especifican los valores del enum
             $table->string('direccion');
-            $table->date('fecha de nacimiento');
+            $table->date('fecha_de _nacimiento');
             $table->string('genero');
             $table->timestamp('fecha de modificacion')->nullable();
             $table->timestamp('email_verified_at')->nullable();

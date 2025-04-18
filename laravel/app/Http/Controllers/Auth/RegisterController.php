@@ -52,6 +52,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'apellidoP' => ['required', 'string', 'max:255'],
+            'apellidoM' => ['required', 'string', 'max:255'],
+            'ci' => ['required', 'string', 'max:20', 'unique:users'],
+            'direccion' => ['required', 'string', 'max:255'],
+            'fecha_de_nacimiento' => ['required', 'date'],
+            'genero' => ['required', 'string', 'in:masculino,femenino,otro'],
         ]);
     }
 
@@ -62,11 +68,17 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
+{
+    return User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => Hash::make($data['password']),
+        'apellidoP' => $data['apellidoP'],
+        'apellidoM' => $data['apellidoM'],
+        'ci' => $data['ci'],
+        'direccion' => $data['direccion'],
+        'fecha_de _nacimiento' => $data['fecha_de_nacimiento'], // ¡Usa el nombre con el ESPACIO!
+        'genero' => $data['genero'],
+    ]);
+}
 }
