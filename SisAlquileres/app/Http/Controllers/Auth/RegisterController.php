@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request; // Importa la clase Request
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,16 +50,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'apellidoP' => 'required|string|max:255',
-            'apellidoM' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:tu_modelos,email', // Ajusta 'tu_modelos' al nombre de tu tabla
-            'ci' => 'required|string|max:20|unique:tu_modelos,ci', // Ajusta 'tu_modelos' al nombre de tu tabla
-            'estado' => 'required|in:activo,inactivo,pendiente',
-            'direccion' => 'nullable|string|max:255',
-            'fecha_nacimiento' => 'required|date',
-            'genero' => 'nullable|string|max:20',
-            'password' => 'required|string|min:8|confirmed',
+            'name' => ['required', 'string', 'max:255'],
+            'apellidoP' => ['required', 'string', 'max:255'],
+            'apellidoM' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'], // Corregido a 'users'
+            'ci' => ['required', 'string', 'max:20', 'unique:users,ci'], // Corregido a 'users'
+            'estado' => ['required', 'in:activo,inactivo,pendiente'],
+            'direccion' => ['nullable', 'string', 'max:255'],
+            'fecha_nacimiento' => ['required', 'date'],
+            'genero' => ['nullable', 'string', 'max:20'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -71,16 +72,16 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $request->name,
-            'apellidoP' => $request->apellidoP,
-            'apellidoM' => $request->apellidoM,
-            'email' => $request->email,
-            'ci' => $request->ci,
-            'estado' => $request->estado,
-            'direccion' => $request->direccion,
-            'fecha_nacimiento' => $request->fecha_nacimiento,
-            'genero' => $request->genero,
-            'password' => Hash::make($request->password), // Hash de la contraseña antes de guardar
+            'name' => $data['name'],
+            'apellidoP' => $data['apellidoP'],
+            'apellidoM' => $data['apellidoM'],
+            'email' => $data['email'],
+            'ci' => $data['ci'],
+            'estado' => $data['estado'],
+            'direccion' => $data['direccion'],
+            'fecha_nacimiento' => $data['fecha_nacimiento'],
+            'genero' => $data['genero'],
+            'password' => Hash::make($data['password']), // Hash de la contraseña antes de guardar
         ]);
     }
 }
