@@ -18,15 +18,15 @@ return new class extends Migration
             $table->string('apellidoM');
             $table->string('email')->unique();
             $table->string('ci')->unique();
-            $table->enum('estado', ['activo', 'inactivo', 'pendiente']); // Corrección: se especifican los valores del enum
+            $table->enum('estado', ['activo', 'inactivo', 'pendiente']);
             $table->string('direccion');
-            $table->date('fecha_de _nacimiento');
+            $table->date('fecha_nacimiento'); // Corrección: nombre de la columna
             $table->string('genero');
-            $table->timestamp('fecha de modificacion')->nullable();
+            $table->timestamp('fecha_modificacion')->nullable(); // Mejor nombre
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps(); // created_at y updated_at
         });
     }
 

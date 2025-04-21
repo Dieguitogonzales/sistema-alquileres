@@ -19,14 +19,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
         'apellidoP',
         'apellidoM',
+        'email',
         'ci',
+        'estado',
         'direccion',
-        'fecha_de _nacimiento', // ¡Usa el nombre con el ESPACIO!
+        'fecha_nacimiento',
         'genero',
+        'fecha_modificacion',
+        'password', // Asegúrate de no incluir la contraseña en fillable si no quieres asignarla masivamente sin hash
     ];
 
     /**
@@ -46,6 +48,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'fecha_nacimiento' => 'date',
+        'fecha_modificacion' => 'datetime',
     ];
 }
