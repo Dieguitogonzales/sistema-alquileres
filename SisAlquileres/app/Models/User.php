@@ -51,4 +51,16 @@ class User extends Authenticatable
         'fecha_nacimiento' => 'date',
         'fecha_modificacion' => 'datetime',
     ];
+
+    // Relación con Alquileres (un usuario tiene muchos alquileres)
+    public function alquileres()
+    {
+        return $this->hasMany(Alquiler::class, 'user_id'); // 'user_id' es la clave foránea en la tabla 'alquiler'
+    }
+
+    // Relación con AlquilerDetalles (un usuario puede tener muchos registros en alquilerDetalle)
+    public function detallesAlquiler()
+    {
+        return $this->hasMany(AlquilerDetalle::class, 'user_id'); // 'user_id' es la clave foránea en la tabla 'alquilerDetalle'
+    }
 }

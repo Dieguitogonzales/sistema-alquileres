@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\TrajeController;
+use App\Http\Controllers\HomeController; // Asegúrate de que esta línea exista
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +22,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth', /* Aquí puedes agregar tu middleware de administrador si lo tienes */])->prefix('admin')->group(function () {
+    Route::resource('categorias', CategoriaController::class);
+    Route::resource('trajes', TrajeController::class);
+});
