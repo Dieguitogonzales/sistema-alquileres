@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\TrajeController;
-use App\Http\Controllers\HomeController; // Asegúrate de que esta línea exista
+use App\Http\Controllers\Admin\AlquilerDetalleController;
+use App\Http\Controllers\Admin\ClienteController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,8 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth', /* Aquí puedes agregar tu middleware de administrador si lo tienes */])->prefix('admin')->group(function () {
-    Route::resource('categorias', CategoriaController::class);
-    Route::resource('trajes', TrajeController::class);
+Route::middleware(['auth', ])->prefix('admin')->group(function () {
+    
+    Route::resource('clientes', ClienteController::class); // Agrega esta línea
 });
+

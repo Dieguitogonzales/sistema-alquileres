@@ -9,14 +9,14 @@ class Cliente extends Model
 {
     use HasFactory;
 
-    protected $table = 'cliente'; // Especifica el nombre de la tabla
+    protected $table = 'clientes'; // Especifica el nombre de la tabla
 
     protected $fillable = [
         'nombre',
         'apellidoP',
         'apellidoM',
         'telefono',
-        'CICliente',
+        'ciCliente',
     ];
 
     // Relación con Alquileres (un cliente tiene muchos alquileres)

@@ -9,7 +9,7 @@ class AlquilerDetalle extends Model
 {
     use HasFactory;
 
-    protected $table = 'alquilerDetalle'; // Especifica el nombre de la tabla
+    protected $table = 'AlquilerDetalle'; // Especifica el nombre de la tabla
     protected $primaryKey = 'idAlquilerDetalle'; // Define la clave primaria si no es 'id'
 
     protected $fillable = [
