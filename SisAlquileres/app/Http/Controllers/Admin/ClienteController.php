@@ -13,10 +13,24 @@ class ClienteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $clientes = Cliente::all();
-        return view('admin.clientes.index', compact('clientes'));
+        $perPage = 10;
+        // Lógica de búsqueda
+        $search = $request->input('search');
+        $clientes = Cliente::query();
+        if ($search) {
+            $clientes->where('nombre', 'LIKE', "%$search%")
+                ->orWhere('apellidoP', 'LIKE', "%$search%")
+                ->orWhere('apellidoM', 'LIKE', "%$search%")
+                ->orWhere('telefono', 'LIKE', "%$search%")
+                ->orWhere('ciCliente', 'LIKE', "%$search%");
+        }
+        // Paginar los resultados
+        $clientes = $clientes->paginate($perPage);
+
+        //$clientes = Cliente::all();
+        return view('admin.clientes.index', compact('clientes', 'search'));
     }
 
     /**
@@ -88,7 +102,7 @@ class ClienteController extends Controller
             'ciCliente' => $request->input('ciCliente'),
         ]);
 
-        return redirect()->route('admin.clientes.index')->with('success', 'Cliente actualizado exitosamente.');
+        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
     }
 
     /**
@@ -97,6 +111,6 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente): RedirectResponse
     {
         $cliente->delete();
-        return redirect()->route('admin.clientes.index')->with('success', 'Cliente eliminado exitosamente.');
+        return redirect()->route('clientes.index')->with('success', 'Cliente eliminado exitosamente.');
     }
 }
