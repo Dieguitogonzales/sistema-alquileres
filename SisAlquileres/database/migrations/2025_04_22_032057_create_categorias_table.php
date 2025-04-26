@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique(); // Asegurar que el nombre de la categoría sea único
-            $table->decimal('precio', 8, 2); // Precio con 8 dígitos en total y 2 decimales
+            $table->string('nombre')->unique->index(); // Asegurar que el nombre de la categoría sea único
+            $table->decimal('precio', 8, 2)->default(0.00); // Precio con 8 dígitos en total y 2 decimales
             $table->timestamps(); // Para las columnas 'created_at' y 'updated_at'
         });
     }

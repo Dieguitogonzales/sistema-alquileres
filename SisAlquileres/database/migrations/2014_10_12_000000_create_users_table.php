@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('apellidoM');
             $table->string('email')->unique();
             $table->string('ci')->unique();
-            $table->enum('estado', ['activo', 'inactiAvo', 'pendiente']);
+            $table->enum('estado', ['activo', 'inactivo', 'pendiente']);
             $table->string('direccion');
             $table->date('fecha_nacimiento'); // Corrección: nombre de la columna
             $table->string('genero');
