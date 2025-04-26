@@ -2,29 +2,25 @@
 
 @section('content')
     <div class="container">
-        <h1>Crear Nueva Categoría</h1>
-
-        <form action="{{ route('admin.categorias.store') }}" method="POST" class="card p-3">
+        <h1 class="mb-4">Crear Nueva Categoría</h1>
+        <form action="{{ route('categorias.store') }}" method="POST">
             @csrf
-            <div class="form-group mb-3">
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') }}" required>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
                 @error('nombre')
-                    <div class="text-danger">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
-            <div class="form-group mb-3">
-                <label for="precio">Precio:</label>
-                <input type="number" name="precio" id="precio" class="form-control" value="{{ old('precio') }}" required
-                    min="0" step="0.01">
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" step="0.01" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ old('precio') }}" required>
                 @error('precio')
-                    <div class="text-danger">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="{{ route('admin.categorias.index') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar Categoría</button>
+            <a href="{{ route('categorias.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 @endsection

@@ -15,10 +15,25 @@ class TrajeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $trajes = Traje::with('categoria')->get(); // Eager load la categoría del traje
-        return view('admin.trajes.index', compact('trajes'));
+        // Número de elementos por página
+        $perPage = 10;
+        // Lógica de búsqueda
+        $search = $request->input('search');
+
+        $trajes = Traje::query();
+         if ($search) {
+            $trajes->where('cantidad', 'LIKE', "%$search%")
+                ->orWhereHas('categoria', function ($query) use ($search) {
+                    $query->where('nombre', 'LIKE', "%$search%");
+                });
+        }
+
+        // Obtener todos los trajes con paginación
+        $trajes = $trajes->paginate($perPage);
+        // Pasar los trajes a la vista
+        return view('admin.trajes.index', compact('trajes','search'));
     }
 
     /**
@@ -35,16 +50,18 @@ class TrajeController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // Valida los datos del formulario
         $request->validate([
-            'idCategoria' => 'required|exists:categoria,idCategoria', // Verifica que la categoría exista
+            'idCategoria' => 'required|exists:categorias,idCategoria',
             'cantidad' => 'required|integer|min:0',
         ]);
 
-        // Crea un nuevo traje en la base de datos
-        Traje::create($request->all());
+        // Crear un nuevo traje
+        Traje::create([
+            'idCategoria' => $request->input('idCategoria'),
+            'cantidad' => $request->input('cantidad'),
+        ]);
 
-        // Redirige a la página de índice con un mensaje de éxito
+        // Redirigir a la página de índice con un mensaje de éxito
         return redirect()->route('admin.trajes.index')->with('success', 'Traje creado exitosamente.');
     }
 
@@ -70,16 +87,19 @@ class TrajeController extends Controller
      */
     public function update(Request $request, Traje $traje): RedirectResponse
     {
-        // Valida los datos del formulario
+        // Validar los datos del formulario
         $request->validate([
-            'idCategoria' => 'required|exists:categoria,idCategoria', // Verifica que la categoría exista
+            'idCategoria' => 'required|exists:categorias,idCategoria',
             'cantidad' => 'required|integer|min:0',
         ]);
 
-        // Actualiza el traje en la base de datos
-        $traje->update($request->all());
+        // Actualizar el traje
+        $traje->update([
+            'idCategoria' => $request->input('idCategoria'),
+            'cantidad' => $request->input('cantidad'),
+        ]);
 
-        // Redirige a la página de índice con un mensaje de éxito
+        // Redirigir a la página de índice con un mensaje de éxito
         return redirect()->route('admin.trajes.index')->with('success', 'Traje actualizado exitosamente.');
     }
 

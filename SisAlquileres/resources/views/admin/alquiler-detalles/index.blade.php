@@ -29,7 +29,7 @@
                                 <td>{{ $detalle->idAlquilerDetalle }}</td>
                                 <td>{{ $detalle->idAlquiler }}</td>
                                 <td>{{ $detalle->idTraje }}</td>
-                                <td>{{ $detalle->idUsuario }}</td>
+                                <td>{{ $detalle->idUser }}</td>
                                 <td>{{ $detalle->precioAlquiler }}</td>
                                 <td>{{ $detalle->cantidad }}</td>
                                 <td>

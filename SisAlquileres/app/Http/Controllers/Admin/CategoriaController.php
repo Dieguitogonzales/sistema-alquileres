@@ -13,10 +13,19 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $categorias = Categoria::all(); // Obtiene todas las categorías de la base de datos
-        return view('admin.categorias.index', compact('categorias'));
+        $perPage = 10;
+        $search = $request->input('search');
+        $categorias = Categoria::query();
+
+        if ($search) {
+            $categorias->where('nombre', 'LIKE', "%$search%");
+        }
+
+        $categorias = $categorias->paginate($perPage);
+
+        return view('admin.categorias.index', compact('categorias', 'search'));
     }
 
     /**
@@ -42,7 +51,7 @@ class CategoriaController extends Controller
         Categoria::create($request->all());
 
         // Redirige a la página de índice con un mensaje de éxito
-        return redirect()->route('admin.categorias.index')->with('success', 'Categoría creada exitosamente.');
+        return redirect()->route('categorias.index')->with('success', 'Categoría creada exitosamente.');
     }
 
     /**
@@ -76,7 +85,7 @@ class CategoriaController extends Controller
         $categoria->update($request->all());
 
         // Redirige a la página de índice con un mensaje de éxito
-        return redirect()->route('admin.categorias.index')->with('success', 'Categoría actualizada exitosamente.');
+        return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente.');
     }
 
     /**
@@ -85,6 +94,6 @@ class CategoriaController extends Controller
     public function destroy(Categoria $categoria): RedirectResponse
     {
         $categoria->delete();
-        return redirect()->route('admin.categorias.index')->with('success', 'Categoría eliminada exitosamente.');
+        return redirect()->route('categorias.index')->with('success', 'Categoría eliminada exitosamente.');
     }
 }

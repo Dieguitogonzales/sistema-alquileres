@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Trajes</h1>
-        <a href="{{ route('admin.trajes.create') }}" class="btn btn-primary mb-3">Crear Nuevo Traje</a>
+        <a href="{{ route('trajes.create') }}" class="btn btn-primary mb-3">Crear Nuevo Traje</a>
 
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -25,7 +25,7 @@
                     <tbody>
                         @foreach ($trajes as $traje)
                             <tr>
-                                <td>{{ $traje->idTraje }}</td>
+                                <td>{{ $traje->id }}</td>
                                 <td>{{ $traje->categoria->nombre }}</td>
                                 <td>{{ $traje->cantidad }}</td>
                                 <td>{{ $traje->fecha_creacion }}</td>
@@ -34,12 +34,10 @@
                                     <div class="d-flex gap-2">
                                         <a href="{{ route('admin.trajes.show', $traje) }}" class="btn btn-info btn-sm">Ver</a>
                                         <a href="{{ route('admin.trajes.edit', $traje) }}" class="btn btn-warning btn-sm">Editar</a>
-                                        <form action="{{ route('admin.trajes.destroy', $traje) }}" method="POST"
-                                            style="display: inline;">
+                                        <form action="{{ route('admin.trajes.destroy', $traje) }}" method="POST" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('¿Estás seguro de eliminar?')">Eliminar</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar?')">Eliminar</button>
                                         </form>
                                     </div>
                                 </td>
@@ -47,6 +45,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $trajes->links() }}
             </div>
         </div>
     </div>

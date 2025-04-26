@@ -9,13 +9,14 @@ class Traje extends Model
 {
     use HasFactory;
 
-    protected $table = 'traje'; // Especifica el nombre de la tabla
+    protected $table = 'trajes';
+    protected $primaryKey = 'idTraje';
+    public $timestamps = true; // Especifica el nombre de la tabla
 
     protected $fillable = [
         'idCategoria',
         'cantidad',
-        'fecha_creacion',
-        'fecha_actualizacion',
+        
     ];
 
     // Relación con Categoria (un traje pertenece a una categoría)
