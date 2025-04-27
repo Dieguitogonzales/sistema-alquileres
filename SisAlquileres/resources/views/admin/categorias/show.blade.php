@@ -7,8 +7,8 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $categoria->nombre }}</h5>
                 <p class="card-text">Precio: {{ $categoria->precio }}</p>
-                <a href="{{ route('categorias.edit', $categoria) }}" class="btn btn-warning">Editar</a>
-                <a href="{{ route('categorias.index') }}" class="btn btn-secondary">Volver al Listado</a>
+                <a href="{{ route('admin.categorias.edit', $categoria) }}" class="btn btn-warning">Editar</a>
+                <a href="{{ route('admin.categorias.index') }}" class="btn btn-secondary">Volver al Listado</a>
             </div>
         </div>
     </div>

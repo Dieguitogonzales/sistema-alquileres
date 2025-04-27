@@ -27,11 +27,20 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth', ])->prefix('admin')->group(function () {
+Route::middleware(['auth', ])->prefix('admin')->name('admin.')->group(function () {
     
     Route::resource('clientes', ClienteController::class);
-    Route::resource('trajes', TrajeController::class);
+    
+    // Gestión de Categorías
     Route::resource('categorias', CategoriaController::class);
-    Route::resource('alquileres', AlquilerController::class);// Agrega esta línea
+    
+    // Gestión de Trajes
+    Route::resource('trajes', TrajeController::class);
+    
+    // Gestión de Alquileres
+    Route::resource('alquileres', AlquilerController::class);
+    
+    // Gestión de Detalles de Alquiler
+    Route::resource('alquiler-detalles', AlquilerDetalleController::class);// Agrega esta línea
 });
 

@@ -13,15 +13,20 @@ return new class extends Migration
     {
         Schema::create('alquileres', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idCliente')->constrained('clientes'); // Clave foránea referenciando a la tabla 'cliente'
-            $table->foreignId('idUser')->constrained('users'); // Clave foránea referenciando a la tabla 'users'
-            $table->date('fechaAlquiler');
+            $table->foreignId('idCliente')->constrained('clientes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('idUser')->constrained('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->enum('TipoAlquiler', ['reserva','directo'])->nullable();
+            $table->date('fechaAlquiler')->required();
             $table->date('fechaReserva')->nullable();
             $table->date('fechaDevolucion')->nullable();
-            $table->decimal('totalAlquiler', 10, 2)->nullable();
-            $table->decimal('MontoAdelantado', 10, 2)->nullable();
-            $table->string('TipoAlquiler')->nullable();
-            $table->timestamps(); // Para las columnas 'created_at' y 'upda
+            $table->decimal('MontoAdelantado', 10, 2)->default(0.00);
+            $table->decimal('totalAlquiler', 10, 2)->default(0.00);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -2,39 +2,27 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4">Detalles del Alquiler</h1>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Alquiler ID: {{ $alquiler->id }}</h5>
-                <p class="card-text">Cliente: {{ $alquiler->cliente->nombre }} {{ $alquiler->cliente->apellidoP }} {{ $alquiler->cliente->apellidoM }}
-                    ({{ $alquiler->cliente->ciCliente }})
-                </p>
-                <p class="card-text">Usuario: {{ $alquiler->user->name }}</p>
-                <p class="card-text">Fecha de Alquiler: {{ $alquiler->fechaAlquiler }}</p>
-                <p class="card-text">Fecha de Reserva: {{ $alquiler->fechaReserva ?? 'N/A' }}</p>
-                <p class="card-text">Fecha de Devolución: {{ $alquiler->fechaDevolucion ?? 'N/A' }}</p>
-                <p class="card-text">Total Alquiler: {{ $alquiler->totalAlquiler ?? 'N/A' }}</p>
-                <p class="card-text">Monto Adelantado: {{ $alquiler->MontoAdelantado ?? 'N/A' }}</p>
-                <p class="card-text">Tipo Alquiler: {{ $alquiler->TipoAlquiler ?? 'N/A' }}</p>
-
-                <h6 class="mt-4">Trajes Alquilados:</h6>
-                @if ($alquiler->alquilerDetalles->count() > 0)
-                    <ul>
-                        @foreach ($alquiler->alquilerDetalles as $detalle)
-                            <li>
-                                Traje: {{ $detalle->traje->id }} - {{ $detalle->traje->categoria->nombre }}
-                                Cantidad: {{ $detalle->cantidad }}
-                                Subtotal: {{ $detalle->subtotal }}
-                            </li>
-                        @endforeach
-                    </ul>
-                    <p class="card-text">Total: {{ $alquiler->alquilerDetalles->sum('subtotal') }}</p>
-                @else
-                    <p class="card-text">No se han alquilado trajes en este alquiler.</p>
-                @endif
-
-                <a href="{{ route('alquileres.edit', $alquiler) }}" class="btn btn-warning">Editar</a>
-                <a href="{{ route('alquileres.index') }}" class="btn btn-secondary">Volver al Listado</a>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Detalles del Alquiler</h4>
+                        <a href="{{ route('admin.alquileres.index') }}" class="btn btn-secondary float-right">Volver</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Cliente:</strong> {{ $alquiler->cliente->nombre }} {{ $alquiler->cliente->apellidoP }} {{ $alquiler->cliente->apellidoM }}</p>
+                                <p><strong>Usuario:</strong> {{ $alquiler->usuario->name }} {{ $alquiler->usuario->apellidoP }} {{ $alquiler->usuario->apellidoM }}</p>
+                                <p><strong>Tipo de Alquiler:</strong> {{ $alquiler->TipoAlquiler }}</p>
+                                <p><strong>Fecha de Alquiler:</strong> {{ $alquiler->fechaAlquiler }}</p>
+                                <p><strong>Fecha de Devolución:</strong> {{ $alquiler->fechaDevolucion }}</p>
+                                <p><strong>Monto Adelantado:</strong> {{ number_format($alquiler->MontoAdelantado, 2) }}</p>
+                                <p><strong>Total Alquiler:</strong> {{ number_format($alquiler->totalAlquiler, 2) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

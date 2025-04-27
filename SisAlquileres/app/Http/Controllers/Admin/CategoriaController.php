@@ -51,7 +51,7 @@ class CategoriaController extends Controller
         Categoria::create($request->all());
 
         // Redirige a la página de índice con un mensaje de éxito
-        return redirect()->route('categorias.index')->with('success', 'Categoría creada exitosamente.');
+        return redirect()->route('admin.categorias.index')->with('success', 'Categoría creada exitosamente.');
     }
 
     /**
@@ -85,7 +85,7 @@ class CategoriaController extends Controller
         $categoria->update($request->all());
 
         // Redirige a la página de índice con un mensaje de éxito
-        return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente.');
+        return redirect()->route('admin.categorias.index')->with('success', 'Categoría actualizada exitosamente.');
     }
 
     /**
@@ -94,6 +94,6 @@ class CategoriaController extends Controller
     public function destroy(Categoria $categoria): RedirectResponse
     {
         $categoria->delete();
-        return redirect()->route('categorias.index')->with('success', 'Categoría eliminada exitosamente.');
+        return redirect()->route('admin.categorias.index')->with('success', 'Categoría eliminada exitosamente.');
     }
 }

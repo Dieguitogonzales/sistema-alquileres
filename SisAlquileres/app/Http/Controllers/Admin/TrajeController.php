@@ -51,15 +51,12 @@ class TrajeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'idCategoria' => 'required|exists:categorias,idCategoria',
+            'idCategoria' => 'required|exists:categorias,id',
             'cantidad' => 'required|integer|min:0',
         ]);
 
         // Crear un nuevo traje
-        Traje::create([
-            'idCategoria' => $request->input('idCategoria'),
-            'cantidad' => $request->input('cantidad'),
-        ]);
+        Traje::create($request->all());
 
         // Redirigir a la página de índice con un mensaje de éxito
         return redirect()->route('admin.trajes.index')->with('success', 'Traje creado exitosamente.');
@@ -89,7 +86,7 @@ class TrajeController extends Controller
     {
         // Validar los datos del formulario
         $request->validate([
-            'idCategoria' => 'required|exists:categorias,idCategoria',
+            'idCategoria' => 'required|exists:categorias,id',
             'cantidad' => 'required|integer|min:0',
         ]);
 

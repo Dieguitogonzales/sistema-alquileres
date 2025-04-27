@@ -26,7 +26,7 @@
             <div class="form-group mb-3">
                 <label for="cantidad">Cantidad:</label>
                 <input type="number" name="cantidad" id="cantidad" class="form-control"
-                    value="{{ old('cantidad', $traje->cantidad) }}" required min="0">
+                    value="{{ old('admin.cantidad', $traje->cantidad) }}" required min="0">
                 @error('cantidad')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror

@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($detalles as $detalle)
+                        @foreach ($alquiler_detalles as $AlquilerDetalle)
                             <tr>
                                 <td>{{ $detalle->idAlquilerDetalle }}</td>
                                 <td>{{ $detalle->idAlquiler }}</td>

@@ -62,7 +62,7 @@ class ClienteController extends Controller
             'ciCliente' => $request->input('ciCliente'),
         ]);
 
-        return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
+        return redirect()->route('admin.clientes.index')->with('success', 'Cliente creado exitosamente.');
     }
 
     /**
@@ -102,7 +102,7 @@ class ClienteController extends Controller
             'ciCliente' => $request->input('ciCliente'),
         ]);
 
-        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
+        return redirect()->route('admin.clientes.index')->with('success', 'Cliente actualizado exitosamente.');
     }
 
     /**
@@ -111,6 +111,6 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente): RedirectResponse
     {
         $cliente->delete();
-        return redirect()->route('clientes.index')->with('success', 'Cliente eliminado exitosamente.');
+        return redirect()->route('admin.clientes.index')->with('success', 'Cliente eliminado exitosamente.');
     }
 }

@@ -12,13 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('alquiler_detalles', function (Blueprint $table) {
-            $table->id(); // Define 'idAlquilerDetalle' como clave primaria autoincrementable
-            $table->foreignId('idAlquiler')->constrained('alquileres'); // Clave foránea referenciando a la tabla 'alquiler'
-            $table->foreignId('idTraje')->constrained('trajes'); // Clave foránea referenciando a la tabla 'traje'
-            $table->foreignId('idUsuario')->constrained('users'); // Clave foránea referenciando a la tabla 'users' (convención de Laravel para usuarios)
-            $table->decimal('precioAlquiler', 8, 2);
-            $table->integer('cantidad');
-            $table->timestamps(); // Para las columnas 'created_at' y 'updated_at'
+            $table->id();
+            $table->foreignId('idAlquiler')->constrained('alquileres')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('idTraje')->constrained('trajes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('idUsuario')->constrained('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->decimal('precioAlquiler', 8, 2)->default(0.00);
+            $table->integer('cantidad')->unsigned()->default(1);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

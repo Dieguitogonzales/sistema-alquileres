@@ -6,10 +6,10 @@
     
             <div class="row mb-3 align-items-center">
                 <div class="col-md-6 mb-2 mb-md-0">
-                    <a href="{{ route('clientes.create') }}" class="btn btn-primary">Crear Nuevo Cliente</a>
+                    <a href="{{ route('admin.clientes.create') }}" class="btn btn-primary">Crear Nuevo Cliente</a>
                 </div>
                 <div class="col-md-6">
-                    <form action="{{ route('clientes.index') }}" method="GET" class="d-flex">
+                    <form action="{{ route('admin.clientes.index') }}" method="GET" class="d-flex">
                         <input type="text" name="search" class="form-control me-2" placeholder="Buscar..." value="{{ $search ?? '' }}">
                         <button type="submit" class="btn btn-outline-secondary">Buscar</button>
                     </form>
@@ -48,9 +48,9 @@
                                         <td>{{ $cliente->ciCliente }}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-2">
-                                                <a href="{{ route('clientes.show', $cliente) }}" class="btn btn-info btn-sm">Ver</a>
-                                                <a href="{{ route('clientes.edit', $cliente) }}" class="btn btn-warning btn-sm">Editar</a>
-                                                <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar?')">
+                                                <a href="{{ route('admin.clientes.show', $cliente) }}" class="btn btn-info btn-sm">Ver</a>
+                                                <a href="{{ route('admin.clientes.edit', $cliente) }}" class="btn btn-warning btn-sm">Editar</a>
+                                                <form action="{{ route('admin.clientes.destroy', $cliente) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>

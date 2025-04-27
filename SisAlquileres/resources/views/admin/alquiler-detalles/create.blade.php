@@ -10,7 +10,7 @@
                 <select class="form-control @error('idAlquiler') is-invalid @enderror" id="idAlquiler" name="idAlquiler" required>
                     <option value="">Seleccionar Alquiler</option>
                     @foreach ($alquileres as $alquiler)
-                        <option value="{{ $alquiler->id }}">{{ $alquiler->id }}</option> {{-- Ajusta cómo quieres mostrar el alquiler --}}
+                        <option value="{{ $alquiler->idCliente }}">{{ $alquiler->idCliente }}</option> {{-- Ajusta cómo quieres mostrar el alquiler --}}
                     @endforeach
                 </select>
                 @error('idAlquiler')
@@ -41,17 +41,18 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="precioAlquiler" class="form-label">Precio Alquiler</label>
-                <input type="number" step="0.01" class="form-control @error('precioAlquiler') is-invalid @enderror" id="precioAlquiler" name="precioAlquiler" value="{{ old('precioAlquiler') }}" required>
-                @error('precioAlquiler')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+
             <div class="mb-3">
                 <label for="cantidad" class="form-label">Cantidad</label>
                 <input type="number" class="form-control @error('cantidad') is-invalid @enderror" id="cantidad" name="cantidad" value="{{ old('cantidad') }}" required>
                 @error('cantidad')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="precioAlquiler" class="form-label">Precio Alquiler</label>
+                <input type="number" step="0.01" class="form-control @error('precioAlquiler') is-invalid @enderror" id="precioAlquiler" name="precioAlquiler" value="{{ old('precioAlquiler') }}" required>
+                @error('precioAlquiler')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

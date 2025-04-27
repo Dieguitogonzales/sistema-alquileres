@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Crear Nuevo Cliente</h1>
-        <form action="/admin/clientes" method="POST">
+        <form action="{{ route('admin.clientes.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
@@ -41,7 +41,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary">Guardar Cliente</button>
-            <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('admin.clientes.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 @endsection

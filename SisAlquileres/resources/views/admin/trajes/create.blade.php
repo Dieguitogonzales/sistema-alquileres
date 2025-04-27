@@ -4,15 +4,15 @@
     <div class="container">
         <h1>Crear Nuevo Traje</h1>
 
-        <form action="{{ route('trajes.store') }}" method="POST" class="card p-3">
+        <form action="{{ route('admin.trajes.store') }}" method="POST" class="card p-3">
             @csrf
             <div class="form-group mb-3">
                 <label for="idCategoria">Categoría:</label>
                 <select name="idCategoria" id="idCategoria" class="form-select" required>
                     <option value="">Seleccione una categoría</option>
                     @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->idCategoria }}" {{ old('idCategoria') == $categoria->idCategoria ? 'selected' : '' }}>
-                            {{ $categoria->nombre }}
+                    <option value="{{ $categoria->id }}" {{ old('idCategoria') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nombre }}</option>
+                            
                         </option>
                     @endforeach
                 </select>
@@ -31,7 +31,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="{{ route('trajes.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('admin.trajes.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 @endsection

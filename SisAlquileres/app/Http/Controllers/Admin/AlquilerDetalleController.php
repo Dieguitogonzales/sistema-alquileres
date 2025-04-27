@@ -18,8 +18,8 @@ class AlquilerDetalleController extends Controller
      */
     public function index(): View
     {
-        $detalles = AlquilerDetalle::all(); // O puedes paginar: AlquilerDetalle::paginate(10);
-        return view('admin.alquiler-detalles.index', compact('detalles'));
+        $alquiler_detalles = AlquilerDetalle::all(); // O puedes paginar: AlquilerDetalle::paginate(10);
+        return view('admin.alquiler-detalles.index', compact('alquiler_detalles'));
     }
 
     /**
@@ -27,7 +27,7 @@ class AlquilerDetalleController extends Controller
      */
     public function create(): View
     {
-        $alquileres = Alquileres::all();
+        $alquileres = Alquiler::all();
         $trajes = Traje::all();
         $usuarios = User::all(); // Asegúrate de usar el modelo correcto para tus usuarios
         return view('admin.alquiler-detalles.create', compact('alquileres', 'trajes', 'usuarios'));

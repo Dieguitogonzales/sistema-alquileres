@@ -10,8 +10,8 @@
                 <p class="card-text">Apellido Materno: {{ $cliente->apellidoM ?? 'N/A' }}</p>
                 <p class="card-text">Teléfono: {{ $cliente->telefono ?? 'N/A' }}</p>
                 <p class="card-text">CI Cliente: {{ $cliente->ciCliente }}</p>
-                <a href="{{ route('clientes.edit', $cliente) }}" class="btn btn-warning">Editar</a>
-                <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Volver</a>
+                <a href="{{ route('admin.clientes.edit', $cliente) }}" class="btn btn-warning">Editar</a>
+                <a href="{{ route('admin.clientes.index') }}" class="btn btn-secondary">Volver</a>
             </div>
         </div>
     </div>

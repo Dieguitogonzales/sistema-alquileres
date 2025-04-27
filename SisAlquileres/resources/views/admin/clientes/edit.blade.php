@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Editar Cliente</h1>
-        <form action="{{ route('clientes.update', $cliente) }}" method="POST">
+        <form action="{{ route('admin.clientes.update', $cliente) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -42,7 +42,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
-            <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('admin.clientes.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 @endsection
