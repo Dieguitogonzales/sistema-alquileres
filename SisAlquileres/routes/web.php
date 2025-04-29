@@ -25,6 +25,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Route::get('/admin/dashboard', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', ])->prefix('admin')->name('admin.')->group(function () {
@@ -34,13 +35,15 @@ Route::middleware(['auth', ])->prefix('admin')->name('admin.')->group(function (
     // Gestión de Categorías
     Route::resource('categorias', CategoriaController::class);
     
-    // Gestión de Trajes
-    Route::resource('trajes', TrajeController::class);
     
     // Gestión de Alquileres
     Route::resource('alquileres', AlquilerController::class);
     
     // Gestión de Detalles de Alquiler
-    Route::resource('alquiler-detalles', AlquilerDetalleController::class);// Agrega esta línea
+    Route::resource('alquiler-detalles', AlquilerDetalleController::class);
+    
+    // Gestión de Trajes
+    Route::resource('trajes', TrajeController::class);
+    // Agrega esta línea
 });
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('idCategoria')->constrained('categorias')
                 ->onDelete('cascade')
                 ->onUpdate('cascade'); // Clave foránea referenciando a la tabla 'categoria'
-            $table->integer('cantidad')->unsigned()->default(0);
+            $table->unsignedInteger('cantidad')->default(0);
             $table->timestamps(); // Esto creará las columnas 'created_at' y 'updated_at' si no quieres las personalizadas
         });
     }

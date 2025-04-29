@@ -30,16 +30,6 @@
                                 <td>{{ $traje->cantidad }}</td>
                                 
                                 
-                                    <div class="d-flex justify-content-center gap-2">
-                                        
-                                        <a href="{{ route('admin.trajes.show', $traje) }}" class="btn btn-info btn-sm">Ver</a>
-                                        <a href="{{ route('admin.trajes.edit', $traje) }}" class="btn btn-warning btn-sm">Editar</a>
-                                        <form action="{{ route('admin.trajes.destroy', $traje) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                        </form>
-                                    </div>
                                 </td>
                             </tr>
                         @endforeach

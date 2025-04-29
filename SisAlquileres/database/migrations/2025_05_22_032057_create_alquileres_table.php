@@ -20,7 +20,7 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->enum('TipoAlquiler', ['reserva','directo'])->nullable();
-            $table->date('fechaAlquiler')->required();
+            $table->date('fechaAlquiler');
             $table->date('fechaReserva')->nullable();
             $table->date('fechaDevolucion')->nullable();
             $table->decimal('MontoAdelantado', 10, 2)->default(0.00);

@@ -11,7 +11,7 @@ class Traje extends Model
 
     protected $table = 'trajes';
     protected $primaryKey = 'idTraje';
-    public $timestamps = true; // Especifica el nombre de la tabla
+    //public $timestamps = true; // Especifica el nombre de la tabla
 
     protected $fillable = [
         'idCategoria',

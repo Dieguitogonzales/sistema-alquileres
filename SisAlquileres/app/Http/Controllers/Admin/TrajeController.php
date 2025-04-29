@@ -105,7 +105,11 @@ class TrajeController extends Controller
      */
     public function destroy(Traje $traje): RedirectResponse
     {
+        if($traje->alquileres()->exists()) {
+            return back()->with('error', 'No se puede eliminar: tiene alquileres asociados');
+        }
+        
         $traje->delete();
-        return redirect()->route('admin.trajes.index')->with('success', 'Traje eliminado exitosamente.');
+        return redirect()->route('admin.trajes.index')->with('success', 'Traje eliminado');
     }
 }

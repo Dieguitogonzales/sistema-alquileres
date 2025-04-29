@@ -22,8 +22,7 @@ return new class extends Migration
             $table->enum('estado', ['activo', 'inactivo', 'pendiente']);
             $table->string('direccion');
             $table->date('fecha_nacimiento'); // Corrección: nombre de la columna
-            $table->string('genero');
-            $table->timestamp('fecha_modificacion')->nullable(); // Mejor nombre
+            $table->string('genero'); // Mejor nombre
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

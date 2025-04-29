@@ -26,17 +26,17 @@
                     <tbody>
                         @foreach ($alquiler_detalles as $AlquilerDetalle)
                             <tr>
-                                <td>{{ $detalle->idAlquilerDetalle }}</td>
-                                <td>{{ $detalle->idAlquiler }}</td>
-                                <td>{{ $detalle->idTraje }}</td>
-                                <td>{{ $detalle->idUser }}</td>
-                                <td>{{ $detalle->precioAlquiler }}</td>
-                                <td>{{ $detalle->cantidad }}</td>
+                                <td>{{ $AlquilerDetalle->idAlquilerDetalle }}</td>
+                                <td>{{ $AlquilerDetalle->idAlquiler }}</td>
+                                <td>{{ $AlquilerDetalle->idTraje }}</td>
+                                <td>{{ $AlquilerDetalle->idUser }}</td>
+                                <td>{{ $AlquilerDetalle->precioAlquiler }}</td>
+                                <td>{{ $AlquilerDetalle->cantidad }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <a href="{{ route('admin.alquiler-detalles.show', $detalle) }}" class="btn btn-info btn-sm">Ver</a>
-                                        <a href="{{ route('admin.alquiler-detalles.edit', $detalle) }}" class="btn btn-warning btn-sm">Editar</a>
-                                        <form action="{{ route('admin.alquiler-detalles.destroy', $detalle) }}" method="POST" style="display: inline;">
+                                        <a href="{{ route('admin.alquiler-detalles.show', $AlquilerDetalle) }}" class="btn btn-info btn-sm">Ver</a>
+                                        <a href="{{ route('admin.alquiler-detalles.edit', $AlquilerDetalle) }}" class="btn btn-warning btn-sm">Editar</a>
+                                        <form action="{{ route('admin.alquiler-detalles.destroy', $AlquilerDetalle) }}" method="POST" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar?')">Eliminar</button>

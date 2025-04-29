@@ -12,6 +12,8 @@
             <p><strong>Fecha de Actualización:</strong> {{ $traje->fecha_actualizacion }}</p>
         </div>
 
-        <a href="{{ route('admin.trajes.index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+        <a href="{{ route('admin.trajes.edit', $traje) }}" class="btn btn-warning">Editar</a>
+        <a href="{{ route('admin.trajes.index') }}" class="btn btn-secondary">Volver</a>
+        
     </div>
 @endsection

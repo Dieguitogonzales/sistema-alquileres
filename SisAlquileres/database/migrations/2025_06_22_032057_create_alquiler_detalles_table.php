@@ -19,11 +19,8 @@ return new class extends Migration
             $table->foreignId('idTraje')->constrained('trajes')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreignId('idUsuario')->constrained('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
             $table->decimal('precioAlquiler', 8, 2)->default(0.00);
-            $table->integer('cantidad')->unsigned()->default(1);
+            $table->unsignedInteger('cantidad')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
