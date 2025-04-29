@@ -39,9 +39,9 @@ class AlquilerDetalleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'idAlquiler' => 'required|exists:alquiler,id', // Ajusta 'alquiler' y 'id' si es necesario
-            'idTraje' => 'required|exists:traje,id', // Ajusta 'traje' y 'id' si es necesario
-            'idUsuario' => 'required|exists:users,id', // Ajusta 'users' y 'id' si es necesario
+            'idAlquiler' => 'required|exists:alquileres,id', // Ajusta 'alquiler' y 'id' si es necesario
+            'idTraje' => 'required|exists:trajes,id', // Ajusta 'traje' y 'id' si es necesario
+            'idUser' => 'required|exists:users,id', // Ajusta 'users' y 'id' si es necesario
             'precioAlquiler' => 'required|numeric|min:0',
             'cantidad' => 'required|integer|min:1',
         ]);
@@ -79,7 +79,7 @@ class AlquilerDetalleController extends Controller
         $request->validate([
             'idAlquiler' => 'required|exists:alquiler,id', // Ajusta 'alquiler' y 'id' si es necesario
             'idTraje' => 'required|exists:traje,id', // Ajusta 'traje' y 'id' si es necesario
-            'idUsuario' => 'required|exists:users,id', // Ajusta 'users' y 'id' si es necesario
+            'idUser' => 'required|exists:users,id', // Ajusta 'users' y 'id' si es necesario
             'precioAlquiler' => 'required|numeric|min:0',
             'cantidad' => 'required|integer|min:1',
         ]);

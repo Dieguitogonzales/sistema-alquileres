@@ -16,6 +16,15 @@
                             </div>
                         @endif
 
+                        <form action="{{ route('admin.alquileres.index') }}" method="GET" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="buscado" placeholder="Buscar..." value="{{ $buscado ?? '' }}">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+                                </div>
+                            </div>
+                        </form>
+
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -30,28 +39,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($alquileres as $alquiler)
-                                <tr>
-                                    <td>{{ $alquiler->cliente->nombre }} {{ $alquiler->cliente->apellidoP }}</td>
-                                    <td>{{ $alquiler->usuario->name }}</td>
-                                    <td>{{ $alquiler->TipoAlquiler }}</td>
-                                    <td>{{ $alquiler->fechaAlquiler }}</td>
-                                    <td>{{ $alquiler->MontoAdelantado }}</td>
-                                    <td>{{ $alquiler->fechaDevolucion }}</td>
-                                    <td>{{ number_format($alquiler->totalAlquiler, 2) }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.alquileres.show', $alquiler->id) }}" class="btn btn-sm btn-info">Ver</a>
-                                        <a href="{{ route('admin.alquileres.edit', $alquiler->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                                        <form action="{{ route('admin.alquileres.destroy', $alquiler->id) }}" method="POST" style="display: inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                @forelse($alquileres as $alquiler)
+                                    <tr>
+                                        <td>{{ $alquiler->cliente->nombre }} {{ $alquiler->cliente->apellidoP }}</td>
+                                        <td>{{ $alquiler->usuario->name }}</td>
+                                        <td>{{ $alquiler->TipoAlquiler }}</td>
+                                        <td>{{ $alquiler->fechaAlquiler }}</td>
+                                        <td>{{ $alquiler->MontoAdelantado }}</td>
+                                        <td>{{ $alquiler->fechaDevolucion }}</td>
+                                        <td>{{ number_format($alquiler->totalAlquiler, 2) }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.alquileres.show', $alquiler->id) }}" class="btn btn-sm btn-info">Ver</a>
+                                            <a href="{{ route('admin.alquileres.edit', $alquiler->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                            <form action="{{ route('admin.alquileres.destroy', $alquiler->id) }}" method="POST" style="display: inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr><td colspan="8">No se encontraron alquileres.</td></tr>
+                                @endforelse
                             </tbody>
                         </table>
+
+                        {{ $alquileres->links() }}
                     </div>
                 </div>
             </div>

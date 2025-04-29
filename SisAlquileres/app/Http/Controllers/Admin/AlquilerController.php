@@ -15,10 +15,29 @@ class AlquilerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $alquileres = Alquiler::with('cliente', 'usuario')->get();
-        return view('admin.alquileres.index', compact('alquileres'));
+        $query = Alquiler::with('cliente', 'usuario');
+
+        $buscado = $request->input('buscado');
+
+        if ($buscado) {
+            $query->whereHas('cliente', function ($q) use ($buscado) {
+                $q->where('nombre', 'like', '%' . $buscado . '%')
+                  ->orWhere('apellidoP', 'like', '%' . $buscado . '%');
+            })
+            ->orWhereHas('usuario', function ($q) use ($buscado) {
+                $q->where('name', 'like', '%' . $buscado . '%');
+            })
+            ->orWhere('TipoAlquiler', 'like', '%' . $buscado . '%')
+            ->orWhere('fechaAlquiler', 'like', '%' . $buscado . '%')
+            ->orWhere('MontoAdelantado', 'like', '%' . $buscado . '%')
+            ->orWhere('fechaDevolucion', 'like', '%' . $buscado . '%')
+            ->orWhere('totalAlquiler', 'like', '%' . $buscado . '%');
+        }
+
+        $alquileres = $query->paginate(10); // Muestra 10 alquileres por página
+        return view('admin.alquileres.index', compact('alquileres', 'buscado'));
     }
 
     public function create()

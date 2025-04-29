@@ -8,13 +8,24 @@
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        {{-- Formulario de búsqueda --}}
+        <form method="GET" action="{{ route('admin.trajes.index') }}" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Buscar por cantidad o categoría" value="{{ request('search') }}">
+                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+            </div>
+        </form>
 
         <div class="card">
             <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Categoría</th>
                             <th>Cantidad</th>
                             <th>Fecha de Creación</th>
@@ -23,19 +34,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($trajes as $traje)
+                        @forelse ($trajes as $index => $traje)
                             <tr>
-                                <td>{{ $traje->id }}</td>
-                                <td>{{ $traje->categoria->nombre }}</td>
+                                <td>{{ $trajes->firstItem() + $index }}</td>
+                                <td>{{ $traje->categoria->nombre ?? 'Sin categoría' }}</td>
                                 <td>{{ $traje->cantidad }}</td>
-                                
-                                
+                                <td>{{ $traje->created_at ? $traje->created_at->format('d/m/Y H:i') : '-' }}</td>
+                                <td>{{ $traje->updated_at ? $traje->updated_at->format('d/m/Y H:i') : '-' }}</td>
+                                <td>
+                                   
+                                    
+
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No se encontraron trajes.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
-                {{ $trajes->links() }}
+
+                {{-- Paginación --}}
+                <div class="d-flex justify-content-center">
+                    {{ $trajes->links() }}
+                </div>
             </div>
         </div>
     </div>

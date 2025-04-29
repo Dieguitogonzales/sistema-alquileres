@@ -35,6 +35,6 @@ class AlquilerDetalle extends Model
     // Relación con Usuario (quien agregó el traje al detalle del alquiler)
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'idUsuario'); // 'idUsuario' es la clave foránea
+        return $this->belongsTo(Cliente::class, 'idCliente'); // 'idUsuario' es la clave foránea
     }
 }

@@ -29,7 +29,7 @@ class Traje extends Model
     public function alquileres()
     {
         return $this->belongsToMany(Alquiler::class, 'alquilerDetalle', 'idTraje', 'idAlquiler')
-                    ->withPivot('precioAlquiler', 'cantidad', 'idUsuario') // Columnas adicionales en la tabla pivote
+                    ->withPivot('precioAlquiler', 'cantidad', 'idUser') // Columnas adicionales en la tabla pivote
                     ->withTimestamps(); // Para las columnas created_at y updated_at de la tabla pivote
     }
 

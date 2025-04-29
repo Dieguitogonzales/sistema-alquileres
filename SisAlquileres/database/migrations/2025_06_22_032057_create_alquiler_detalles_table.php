@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('idAlquiler')->constrained('alquileres')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->foreignId('idCliente')->constrained('clientes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreignId('idTraje')->constrained('trajes')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
