@@ -39,7 +39,7 @@
                             <label>Traje</label>
                             <select name="idTraje" class="form-control" required>
                                 @foreach($trajes as $traje)
-                                <option value="{{ $traje->id }}">{{ $traje->nombre }} - Talla: {{ $traje->talla }} -
+                                <option value="{{ $traje->id }}">{{ $traje->nombre }} : Categoria: {{ $traje->talla }} :
                                     {{ $traje->categoria->nombre ?? 'Sin categoría' }}</option>
                                 @endforeach
                             </select>

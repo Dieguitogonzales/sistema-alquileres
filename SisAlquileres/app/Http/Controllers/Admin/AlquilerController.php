@@ -18,19 +18,18 @@ class AlquilerController extends Controller
      */
     public function index(Request $request)
 {
-    $query = Alquiler::with('cliente', 'usuario')->where('estado', 'activo');
+    $query = Alquiler::with('cliente', 'usuario', 'trajes.categoria')->where('estado', 'activo');
 
     $search = $request->input('buscado');
 
     if ($search) {
-        $alquiler->where(function ($query) use ($search) {
+        $query->where(function ($query) use ($search) {
             $query->where('cantidad', 'LIKE', "%$search%")
-                  ->orWhereHas('categoria', function ($q) use ($search) {
+                  ->orWhereHas('trajes.categoria', function ($q) use ($search) {
                       $q->where('nombre', 'LIKE', "%$search%");
                   });
         });
     }
-
 
     $alquileres = $query->paginate(10);
     return view('admin.alquileres.index', compact('alquileres', 'search'));
