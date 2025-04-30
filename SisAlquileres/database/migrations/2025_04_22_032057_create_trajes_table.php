@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('trajes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('idCategoria')->constrained('categorias')
-                ->onDelete('cascade')
-                ->onUpdate('cascade'); // Clave foránea referenciando a la tabla 'categoria'
+                ->onDelete('cascade')// Clave foránea referenciando a la tabla 'categoria'
+                ->onUpdate('cascade');
+            $table->string('nombre', 255); 
             $table->unsignedInteger('cantidad')->default(0);
-            $table->timestamps(); // Esto creará las columnas 'created_at' y 'updated_at' si no quieres las personalizadas
+            $table->decimal('precio', 8, 2)->default(0.00);
+            $table->enum('estado', ['activo', 'inactivo', 'pendiente']);
+            $table->timestamps();
+            $table->softDeletes(); // Esto creará las columnas 'created_at' y 'updated_at' si no quieres las personalizadas
         });
     }
 
