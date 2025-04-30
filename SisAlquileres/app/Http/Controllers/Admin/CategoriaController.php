@@ -17,7 +17,8 @@ class CategoriaController extends Controller
     {
         $perPage = 10;
         $search = $request->input('search');
-        $categorias = Categoria::query();
+        //$categorias = Categoria::query();
+        $categorias = Categoria::where('estado', 'activo');
 
         if ($search) {
             $categorias->where('nombre', 'LIKE', "%$search%");
@@ -42,10 +43,10 @@ class CategoriaController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // Valida los datos del formulario
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'precio' => 'required|numeric|min:0',
-        ]);
+        // $request->validate([
+        //     'nombre' => 'required|string|max:255',
+        //     'descripcion' => 'required|text|max:255',
+        // ]);
 
         // Crea una nueva categoría en la base de datos
         Categoria::create($request->all());
@@ -78,7 +79,7 @@ class CategoriaController extends Controller
         // Valida los datos del formulario
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'precio' => 'required|numeric|min:0',
+            'descripcion' => 'required|string|max:1000',
         ]);
 
         // Actualiza la categoría en la base de datos
@@ -93,7 +94,11 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria): RedirectResponse
     {
-        $categoria->delete();
+        
+
+        $categoria->estado = 'inactivo';
+        $categoria->save();
+    
         return redirect()->route('admin.categorias.index')->with('success', 'Categoría eliminada exitosamente.');
     }
 }

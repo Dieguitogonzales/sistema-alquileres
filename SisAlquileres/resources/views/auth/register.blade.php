@@ -81,24 +81,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="estado" class="col-md-4 col-form-label text-md-end">{{ __('Estado') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="estado" class="form-control @error('estado') is-invalid @enderror" name="estado" required>
-                                    <option value="">{{ __('Seleccionar Estado') }}</option>
-                                    <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>{{ __('Activo') }}</option>
-                                    <option value="inactivo" {{ old('estado') == 'inactivo' ? 'selected' : '' }}>{{ __('Inactivo') }}</option>
-                                    <option value="pendiente" {{ old('estado') == 'pendiente' ? 'selected' : '' }}>{{ __('Pendiente') }}</option>
-                                </select>
-
-                                @error('estado')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                        
 
                         <div class="row mb-3">
                             <label for="direccion" class="col-md-4 col-form-label text-md-end">{{ __('Dirección') }}</label>

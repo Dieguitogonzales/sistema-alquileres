@@ -16,9 +16,6 @@
                 <a href="{{ route('admin.alquileres.index') }}" class="btn btn-primary btn-block">Alquileres</a>
             </div>
             <div class="col-md-3">
-                <a href="{{ route('admin.alquiler-detalles.index') }}" class="btn btn-primary btn-block">Detalles Alquiler</a>
-            </div>
-            <div class="col-md-3">
                 <a href="{{ route('admin.trajes.index') }}" class="btn btn-primary btn-block">Trajes</a>
             </div>
         </div>

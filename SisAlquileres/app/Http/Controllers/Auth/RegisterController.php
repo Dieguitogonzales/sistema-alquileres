@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'apellidoM' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'], // Corregido a 'users'
             'ci' => ['required', 'string', 'max:20', 'unique:users,ci'], // Corregido a 'users'
-            'estado' => ['required', 'in:activo,inactivo,pendiente'],
+            
             'direccion' => ['nullable', 'string', 'max:255'],
             'fecha_nacimiento' => ['required', 'date'],
             'genero' => ['nullable', 'string', 'max:20'],
@@ -77,7 +77,7 @@ class RegisterController extends Controller
             'apellidoM' => $data['apellidoM'],
             'email' => $data['email'],
             'ci' => $data['ci'],
-            'estado' => $data['estado'],
+            
             'direccion' => $data['direccion'],
             'fecha_nacimiento' => $data['fecha_nacimiento'],
             'genero' => $data['genero'],

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Alquiler;
 use App\Models\Cliente;
+use App\Models\Traje;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,35 +17,33 @@ class AlquilerController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $query = Alquiler::with('cliente', 'usuario');
+{
+    $query = Alquiler::with('cliente', 'usuario')->where('estado', 'activo');
 
-        $buscado = $request->input('buscado');
+    $search = $request->input('buscado');
 
-        if ($buscado) {
-            $query->whereHas('cliente', function ($q) use ($buscado) {
-                $q->where('nombre', 'like', '%' . $buscado . '%')
-                  ->orWhere('apellidoP', 'like', '%' . $buscado . '%');
-            })
-            ->orWhereHas('usuario', function ($q) use ($buscado) {
-                $q->where('name', 'like', '%' . $buscado . '%');
-            })
-            ->orWhere('TipoAlquiler', 'like', '%' . $buscado . '%')
-            ->orWhere('fechaAlquiler', 'like', '%' . $buscado . '%')
-            ->orWhere('MontoAdelantado', 'like', '%' . $buscado . '%')
-            ->orWhere('fechaDevolucion', 'like', '%' . $buscado . '%')
-            ->orWhere('totalAlquiler', 'like', '%' . $buscado . '%');
-        }
-
-        $alquileres = $query->paginate(10); // Muestra 10 alquileres por página
-        return view('admin.alquileres.index', compact('alquileres', 'buscado'));
+    if ($search) {
+        $alquiler->where(function ($query) use ($search) {
+            $query->where('cantidad', 'LIKE', "%$search%")
+                  ->orWhereHas('categoria', function ($q) use ($search) {
+                      $q->where('nombre', 'LIKE', "%$search%");
+                  });
+        });
     }
+
+
+    $alquileres = $query->paginate(10);
+    return view('admin.alquileres.index', compact('alquileres', 'search'));
+}
+
 
     public function create()
     {
         $clientes = Cliente::all();
         $usuarios = User::all();
-        return view('admin.alquileres.create', compact('clientes', 'usuarios'));
+        $trajes = Traje::all();
+
+        return view('admin.alquileres.create', compact('clientes', 'usuarios','trajes'));
     }
 
     public function store(Request $request)
@@ -52,6 +51,7 @@ class AlquilerController extends Controller
         $request->validate([
             'idCliente' => 'required|exists:clientes,id',
             'idUser' => 'required|exists:users,id',
+            //'idTraje' => 'required|exists:trajes,id',
             'fechaAlquiler' => 'required|date',
             'TipoAlquiler' => 'required|in:reserva,directo'
         ]);
@@ -91,9 +91,17 @@ class AlquilerController extends Controller
     }
 
     public function destroy($id)
-    {
-        Alquiler::find($id)->delete();
-        return redirect()->route('admin.alquileres.index')
-            ->with('success', 'Alquiler eliminado exitosamente');
+{
+    $alquiler = Alquiler::find($id); // ESTA LÍNEA ES FUNDAMENTAL
+
+    if (!$alquiler) {
+        return redirect()->route('admin.alquileres.index')->with('error', 'Alquiler no encontrado.');
     }
+
+    $alquiler->estado = 'inactivo';
+    $alquiler->save();
+
+    return redirect()->route('admin.alquileres.index')->with('success', 'Alquiler marcado como inactivo correctamente.');
+}
+
 }

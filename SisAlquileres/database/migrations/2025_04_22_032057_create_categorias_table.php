@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre')->unique(); // Asegurar que el nombre de la categoría sea único
             $table->text('descripcion');
-            $table->enum('estado', ['activo', 'inactivo', 'pendiente']); // Precio con 8 dígitos en total y 2 decimales
+            $table->enum('estado', ['activo', 'inactivo', 'pendiente'])->default('activo'); // Precio con 8 dígitos en total y 2 decimales
             $table->timestamps();
             $table->softDeletes();// Para las columnas 'created_at' y 'updated_at'
         });

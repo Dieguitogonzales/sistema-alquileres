@@ -17,24 +17,30 @@ class TrajeController extends Controller
      */
     public function index(Request $request): View
     {
-        // Número de elementos por página
-        $perPage = 10;
-        // Lógica de búsqueda
-        $search = $request->input('search');
+    // Número de elementos por página
+    $perPage = 10;
 
-        $trajes = Traje::query();
-         if ($search) {
-            $trajes->where('cantidad', 'LIKE', "%$search%")
-                ->orWhereHas('categoria', function ($query) use ($search) {
-                    $query->where('nombre', 'LIKE', "%$search%");
-                });
-        }
+    // Lógica de búsqueda
+    $search = $request->input('search');
 
-        // Obtener todos los trajes con paginación
-        $trajes = $trajes->paginate($perPage);
-        // Pasar los trajes a la vista
-        return view('admin.trajes.index', compact('trajes','search'));
+    $trajes = Traje::where('estado', 'activo'); // Solo los trajes activos
+
+    if ($search) {
+        $trajes->where(function ($query) use ($search) {
+            $query->where('cantidad', 'LIKE', "%$search%")
+                  ->orWhereHas('categoria', function ($q) use ($search) {
+                      $q->where('nombre', 'LIKE', "%$search%");
+                  });
+        });
     }
+
+    // Obtener todos los trajes con paginación
+    $trajes = $trajes->paginate($perPage);
+
+    // Pasar los trajes a la vista
+    return view('admin.trajes.index', compact('trajes', 'search'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +59,10 @@ class TrajeController extends Controller
         $request->validate([
             'idCategoria' => 'required|exists:categorias,id',
             'cantidad' => 'required|integer|min:0',
-        ]);
+            'tipo' => 'required|string',
+            'nombre' => 'required|string|max:255',
+            'precio'  => 'required|string|max:255'
+        ]); 
 
         // Crear un nuevo traje
         Traje::create($request->all());
@@ -105,11 +114,12 @@ class TrajeController extends Controller
      */
     public function destroy(Traje $traje): RedirectResponse
     {
-        if($traje->alquileres()->exists()) {
-            return back()->with('error', 'No se puede eliminar: tiene alquileres asociados');
-        }
-        
-        $traje->delete();
-        return redirect()->route('admin.trajes.index')->with('success', 'Traje eliminado');
+        // Cambiar el estado del traje a "inactivo" en lugar de eliminarlo
+        $traje->estado = 'inactivo';
+        $traje->save();
+    
+        return redirect()->route('admin.trajes.index')->with('success', 'El estado del traje ha sido cambiado a inactivo.');
     }
+    
+
 }

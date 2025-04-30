@@ -13,7 +13,7 @@ class Categoria extends Model
 
     protected $fillable = [
         'nombre',
-        'precio',
+        'descripcion',
     ];
 
     // Relación con Trajes (una categoría tiene muchos trajes)

@@ -19,12 +19,17 @@ return new class extends Migration
             $table->foreignId('idUser')->constrained('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->foreignId('idTraje')->constrained('trajes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->enum('TipoAlquiler', ['reserva','directo'])->nullable();
             $table->date('fechaAlquiler');
             $table->date('fechaReserva')->nullable();
             $table->date('fechaDevolucion')->nullable();
             $table->decimal('MontoAdelantado', 10, 2)->default(0.00);
+            $table->unsignedInteger('cantidad')->default(0);
             $table->decimal('totalAlquiler', 10, 2)->default(0.00);
+            $table->enum('estado', ['activo', 'inactivo', 'pendiente'])->default('activo');
             $table->timestamps();
             $table->softDeletes();
         });

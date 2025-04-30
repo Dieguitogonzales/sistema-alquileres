@@ -18,7 +18,8 @@ class ClienteController extends Controller
         $perPage = 10;
         // Lógica de búsqueda
         $search = $request->input('search');
-        $clientes = Cliente::query();
+        //$clientes = Cliente::query();
+        $clientes = Cliente::where('estado', 'activo');
         if ($search) {
             $clientes->where('nombre', 'LIKE', "%$search%")
                 ->orWhere('apellidoP', 'LIKE', "%$search%")
@@ -110,7 +111,11 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente): RedirectResponse
     {
-        $cliente->delete();
-        return redirect()->route('admin.clientes.index')->with('success', 'Cliente eliminado exitosamente.');
+    // Cambiar el estado a 'inactivo' en lugar de eliminar el registro
+            $cliente->estado = 'inactivo';
+            $cliente->save();
+
+            return redirect()->route('admin.clientes.index')->with('success', 'Cliente desactivado correctamente.');
     }
+
 }

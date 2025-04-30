@@ -13,9 +13,9 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="precio" class="form-label">Precio</label>
-                <input type="number" step="0.01" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ old('precio') }}" required>
-                @error('precio')
+                <label for="precio" class="form-label">Descripcion</label>
+                <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" value="{{ old('descripcion') }}" required>
+                @error('descripcion')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

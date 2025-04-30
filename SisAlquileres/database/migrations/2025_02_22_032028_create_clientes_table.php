@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('apellidoP', 255)->nullable();
             $table->string('apellidoM', 255)->nullable();
             $table->string('telefono')->nullable(); // Cambiado a string
-            $table->string('ciCliente')->unique(); // Cambiado a string
+            $table->string('ciCliente')->unique();
+            $table->enum('estado', ['activo', 'inactivo', 'pendiente'])->default('activo'); // Cambiado a string
             $table->timestamps();
         });
     }

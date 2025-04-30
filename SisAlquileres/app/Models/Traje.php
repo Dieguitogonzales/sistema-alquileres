@@ -10,12 +10,14 @@ class Traje extends Model
     use HasFactory;
 
     protected $table = 'trajes';
-    protected $primaryKey = 'idTraje';
     //public $timestamps = true; // Especifica el nombre de la tabla
 
     protected $fillable = [
         'idCategoria',
+        'tipo',
+        'nombre',
         'cantidad',
+        'precio',
         
     ];
 
@@ -26,16 +28,13 @@ class Traje extends Model
     }
 
     // Relación con Alquileres (un traje está en muchos alquileres a través de alquilerDetalle)
-    public function alquileres()
-    {
-        return $this->belongsToMany(Alquiler::class, 'alquilerDetalle', 'idTraje', 'idAlquiler')
-                    ->withPivot('precioAlquiler', 'cantidad', 'idUser') // Columnas adicionales en la tabla pivote
-                    ->withTimestamps(); // Para las columnas created_at y updated_at de la tabla pivote
-    }
+    // public function alquileres()
+    // {
+    //     return $this->belongsToMany(Alquiler::class, 'id', 'idAlquiler')
+    //                 ->withPivot('precioAlquiler', 'cantidad', 'idUser') // Columnas adicionales en la tabla pivote
+    //                 ->withTimestamps(); // Para las columnas created_at y updated_at de la tabla pivote
+    // }
 
     // Relación con AlquilerDetalles (un traje tiene muchos detalles de alquiler)
-    public function detallesAlquiler()
-    {
-        return $this->hasMany(AlquilerDetalle::class, 'idTraje'); // 'idTraje' es la clave foránea en 'alquilerDetalle'
-    }
+    
 }

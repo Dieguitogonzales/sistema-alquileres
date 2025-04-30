@@ -15,11 +15,13 @@ class Alquiler extends Model
     protected $fillable = [
         'idCliente',
         'idUser',
+        'idTraje',
         'TipoAlquiler',
         'fechaAlquiler',
         'fechaReserva',
         'fechaDevolucion',
         'MontoAdelantado',
+        'cantidad',
         'totalAlquiler'
     ];
 
@@ -29,6 +31,7 @@ class Alquiler extends Model
         'fechaReserva' => 'date:Y-m-d',
         'fechaDevolucion' => 'date:Y-m-d',
         'MontoAdelantado' => 'decimal:2',
+        'cantidad' => 'integer',
         'totalAlquiler' => 'decimal:2'
     ];
 
@@ -42,10 +45,12 @@ class Alquiler extends Model
         return $this->belongsTo(User::class, 'idUser');
     }
 
-    public function alquilerDetalles()
+    public function trajes()
     {
-        return $this->hasMany(AlquilerDetalle::class, 'idAlquiler');
+        return $this->belongsTo(Traje::class, 'idTraje');
     }
+
+    
 
     public function scopeReserva($query)
     {
